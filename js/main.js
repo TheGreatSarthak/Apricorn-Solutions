@@ -172,7 +172,11 @@ $(function () {
     $(".mil-main-menu ul li.mil-active > a")
       .clone()
       .appendTo(".mil-current-page");
+    $(".main-nav-bar ul li.nav-active > a")
+      .clone()
+      .appendTo(".mil-current-page");
   });
+
   /***************************
 
     accordion
@@ -404,6 +408,22 @@ $(function () {
       ease: "sine",
     });
   });
+
+  /***************************
+
+     navbar
+
+    ***************************/
+
+  // Main navigation bar functionality
+  $(".nav-has-children a").on("click", function (event) {
+    event.preventDefault(); // Prevent the default anchor behavior
+    $(".nav-has-children ul").removeClass("nav-active");
+    $(".nav-has-children a").removeClass("nav-active");
+    $(this).toggleClass("nav-active");
+    $(this).next().toggleClass("nav-active");
+  });
+
   /***************************
 
      menu
@@ -687,6 +707,24 @@ $(function () {
         ScrollTrigger.refresh();
       },
     });
+
+    /***************************
+
+     navbar
+
+    ***************************/
+
+    $(".nav-has-children ul").removeClass("nav-active");
+    $(".nav-has-children a").removeClass("nav-active");
+
+    $(".nav-has-children a").on("click", function (event) {
+      event.preventDefault();
+      $(".nav-has-children ul").removeClass("nav-active");
+      $(".nav-has-children a").removeClass("nav-active");
+      $(this).toggleClass("nav-active");
+      $(this).next().toggleClass("nav-active");
+    });
+
     /***************************
 
          menu
@@ -708,6 +746,9 @@ $(function () {
       $(".mil-dodecahedron").clone().appendTo(".mil-animation");
       $(".mil-lines").clone().appendTo(".mil-lines-place");
       $(".mil-main-menu ul li.mil-active > a")
+        .clone()
+        .appendTo(".mil-current-page");
+      $(".main-nav-bar ul li.nav-active > a")
         .clone()
         .appendTo(".mil-current-page");
     });
@@ -903,6 +944,7 @@ $(function () {
         ease: "sine",
       });
     });
+
     /***************************
 
         main menu
@@ -1143,17 +1185,3 @@ $(function () {
     });
   });
 });
-
-//navbar scrolling animation
-let prevScrollpos = window.scrollY;
-const navbar = document.querySelector(".main-nav-bar");
-
-window.onscroll = function () {
-  let currentScrollPos = window.scrollY;
-  if (prevScrollpos > currentScrollPos) {
-    navbar.style.top = "0"; // Scroll up, show navbar
-  } else {
-    navbar.style.top = `-${navbar.offsetHeight}px`; // Scroll down, hide navbar
-  }
-  prevScrollpos = currentScrollPos;
-};
